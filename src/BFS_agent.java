@@ -36,7 +36,8 @@ public class BFS_agent implements Agent{
 			}
 			else if(args[0].equals("ORIENTATION"))
 			{		
-				startState.direction = Direction.valueOf(args[1]);
+				//startState.direction = Direction.valueOf(args[1]);
+				startState.direction = Direction.NORTH;
 			}
 			else if(args[0].equals("SIZE")){
 				roomWidth = Integer.parseInt(args[1]);
@@ -68,7 +69,7 @@ public class BFS_agent implements Agent{
 			}
 		}
 		else
-			System.out.print("No path found :(");
+			System.out.print("No path found :( ");
 		
 	}
 
@@ -87,6 +88,7 @@ public class BFS_agent implements Agent{
 	
 	private Node search(State startState)
 	{
+		//fifo queue for the frontier
 		Queue<Node> frontier = new LinkedList<Node>();
 		int nodeCounter = 0;
 		
@@ -112,7 +114,9 @@ public class BFS_agent implements Agent{
 			for(String move : GenerateLegalMoves(n.state))
 			{
 				//Get generate the next state and add the node
-				frontier.add(new Node(n, n.state.getNext(move), move));
+				State nextState = n.state.getNext(move);
+				if(nextState != null)
+					frontier.add(new Node(n, nextState, move));
 			}
 		}
 		
@@ -134,7 +138,7 @@ public class BFS_agent implements Agent{
 			return moves;
 		}
 
-		//Maybe check if the turn is useful
+		//Maybe check if the turn is useful?
 		moves.add("TURN_LEFT");
 		moves.add("TURN_RIGHT");
 		

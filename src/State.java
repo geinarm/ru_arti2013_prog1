@@ -16,6 +16,7 @@ public class State {
 	{
 		this.position = new Position(s.position.x, s.position.y);
 		this.direction = s.direction;
+		dirt = new ArrayList<Position>();
 		
 		for(Position p:s.dirt){
 			this.dirt.add(p);

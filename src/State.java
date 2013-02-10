@@ -36,7 +36,7 @@ public class State {
 			else if(s.direction == Direction.EAST)
 				s.position.x ++;
 			else if(s.direction == Direction.SOUTH)
-				s.position.x --;
+				s.position.y --;
 			else if(s.direction == Direction.WEST)
 				s.position.x --;
 		}
@@ -63,7 +63,7 @@ public class State {
 				s.direction = Direction.NORTH;
 		}
 		else if(move.equals("SUCK")){
-			dirt.remove(s.position);
+			s.dirt.remove(s.position);
 		}
 		
 		return s;
@@ -74,11 +74,18 @@ public class State {
 	static boolean isGoal(State state, Position homePosition)
 	{
 		if(state.dirt.size() == 0 && 
-			state.position.x == homePosition.x && 
-			state.position.y == homePosition.y)
+			state.position.equals(homePosition))
 			return true;
 		
 		
 		return false;
+	}
+	
+	public boolean equals(Object state) {
+		State s = (State) state;
+		return (s != null &&
+				direction == s.direction &&
+				position.equals(s.position) &&
+				dirt.equals(s.dirt));
 	}
 }

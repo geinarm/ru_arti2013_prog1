@@ -13,4 +13,10 @@ public class Position{
 		this.x = x;
 		this.y = y;
 	}
+	
+	public boolean equals(Object pos) {
+		if (pos==null) return false;
+		Position p = (Position) pos;
+		return (this.x == p.x && this.y == p.y);
+	}
 }

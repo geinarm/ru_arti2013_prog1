@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 
@@ -21,7 +20,7 @@ public class BFS_agent implements Agent{
 		for (String percept:percepts) 
 		{
 			String[] args = percept.replaceFirst("^\\(", "").split("[() ]+");
-				
+			
 			for(String arg : args)
 			{
 				System.out.print(arg);
@@ -59,7 +58,7 @@ public class BFS_agent implements Agent{
 		//If the goal is not null we found a path
 		if(goalNode != null)
 		{
-			System.out.print("Path found!");
+			System.out.println("Path found! - depth: " + goalNode.depth);
 			//The last move will always be 'TURN_OFF' so just add it here
 			path.push("TURN_OFF");
 			
@@ -69,7 +68,7 @@ public class BFS_agent implements Agent{
 			}
 		}
 		else
-			System.out.print("No path found :( ");
+			System.out.println("No path found :( ");
 		
 	}
 
@@ -77,11 +76,11 @@ public class BFS_agent implements Agent{
 	{
 		if(!path.isEmpty()){
 			String move = path.pop();
-			System.out.print(move);
+			System.out.println(move);
 			return move;
 		}
 		else
-			System.out.print("No stuff to do");
+			System.out.println("No stuff to do");
 		
 		return "";
 	}
@@ -89,7 +88,9 @@ public class BFS_agent implements Agent{
 	private Node search(State startState)
 	{
 		//fifo queue for the frontier
-		Queue<Node> frontier = new LinkedList<Node>();
+		LinkedList<Node> frontier = new LinkedList<Node>();
+		ArrayList<State> checked = new ArrayList<State>();
+		
 		int nodeCounter = 0;
 		
 		//Create the root of the search tree
@@ -101,12 +102,14 @@ public class BFS_agent implements Agent{
 		{
 			Node n = frontier.poll();
 			nodeCounter ++;
+			
+			checked.add(n.state);
+			
 			//Is this the goal we want
 			if(State.isGoal(n.state, home))
 			{
 				System.out.print("Nodes looked at: ");
-				System.out.print(nodeCounter);
-				System.out.print("\n");
+				System.out.println(nodeCounter);
 				return n;
 			}
 			
@@ -115,15 +118,14 @@ public class BFS_agent implements Agent{
 			{
 				//Get generate the next state and add the node
 				State nextState = n.state.getNext(move);
-				if(nextState != null)
+				if(nextState != null && !checked.contains(nextState))
 					frontier.add(new Node(n, nextState, move));
 			}
 		}
 		
 		//No goal was found
 		System.out.print("Nodes looked at: ");
-		System.out.print(nodeCounter);
-		System.out.print("\n");
+		System.out.println(nodeCounter);
 		return null;
 		
 	}
@@ -132,7 +134,7 @@ public class BFS_agent implements Agent{
 	{
 		ArrayList<String> moves = new ArrayList<String>();
 		
-		if(state.dirt.contains(state.position)){
+		if(state.dirt.contains(state.position)) {
 			//If we found dirt the only thing to do is to suck
 			moves.add("SUCK");
 			return moves;
@@ -159,8 +161,8 @@ public class BFS_agent implements Agent{
 				break;
 		}
 		
-		if(afterMove.x > 0 && afterMove.x < roomHeight &&
-			afterMove.y > 0 && afterMove.y < roomWidth && 
+		if(afterMove.x > 0 && afterMove.x <= roomWidth &&
+			afterMove.y > 0 && afterMove.y <= roomHeight && 
 			!walls.contains(afterMove)){
 			moves.add("GO");
 		}

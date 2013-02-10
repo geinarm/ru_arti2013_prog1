@@ -3,7 +3,7 @@ import java.util.Collection;
 import java.util.Stack;
 
 
-public class SearchAgent implements Agent {
+public abstract class SearchAgent implements Agent {
 	Position home;
 	ArrayList<Position> walls = new ArrayList<Position>();
 	int roomHeight;
@@ -83,10 +83,7 @@ public class SearchAgent implements Agent {
 		return "";
 	}
 	
-	protected Node search(State startState)
-	{
-		return null;	
-	}
+	abstract protected Node search(State startState);
 	
 	protected ArrayList<String> GenerateLegalMoves(State state)
 	{

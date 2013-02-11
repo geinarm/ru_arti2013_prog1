@@ -10,7 +10,6 @@ public class BFS_agent extends SearchAgent{
 	{
 		//fifo queue for the frontier
 		LinkedList<Node> frontier = new LinkedList<Node>();
-		ArrayList<State> checked = new ArrayList<State>();
 		
 		int nodeCounter = 0;
 		
@@ -23,8 +22,6 @@ public class BFS_agent extends SearchAgent{
 		{
 			Node n = frontier.poll();
 			nodeCounter ++;
-			
-			checked.add(n.state);
 			
 			//Is this the goal we want
 			if(State.isGoal(n.state, home))
@@ -39,7 +36,7 @@ public class BFS_agent extends SearchAgent{
 			{
 				//Get generate the next state and add the node
 				State nextState = n.state.getNext(move);
-				if(nextState != null && !checked.contains(nextState))
+				if(nextState != null)
 					frontier.add(new Node(n, nextState, move));
 			}
 		}

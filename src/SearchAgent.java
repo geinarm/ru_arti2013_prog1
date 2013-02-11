@@ -56,7 +56,7 @@ public abstract class SearchAgent implements Agent {
 		//If the goal is not null we found a path
 		if(goalNode != null)
 		{
-			System.out.println("Path found! - depth: " + goalNode.depth);
+			System.out.println("Path found! - cost: " + goalNode.pathCost);
 			//The last move will always be 'TURN_OFF' so just add it here
 			path.push("TURN_OFF");
 			

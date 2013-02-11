@@ -1,5 +1,5 @@
 
-public class Node implements Comparable{
+public class Node implements Comparable<Node>{
 
 	public State state;		//The state at this node
 	public String move;		//The move that brought us to this move
@@ -15,13 +15,9 @@ public class Node implements Comparable{
 	
 	Node(Node parent, State state, String move)
 	{
-		this.state = state;
-		this.parent = parent;
-		this.move = move;
-		this.h = 0;
-		this.g = (this.parent == null) ? 1 : this.parent.g + 1;
+		this(parent, state, move, 0, 1);
 	}
-	
+
 	Node(Node parent, State state, String move, int h, int g)
 	{
 		this.state = state;
@@ -40,9 +36,7 @@ public class Node implements Comparable{
 	}
 
 	@Override
-	public int compareTo(Object obj) {
-		Node n = (Node)obj;
-		
+	public int compareTo(Node n) {
 		if(n.g + n.h > this.g + this.h)
 			return -1;
 		

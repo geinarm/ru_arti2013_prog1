@@ -37,12 +37,13 @@ public class Node implements Comparable<Node>{
 
 	@Override
 	public int compareTo(Node n) {
-		if(n.g + n.h > this.g + this.h)
-			return -1;
-		
-		if(n.g + n.h < this.g + this.h)
-			return 1;
-		
-		return 0;
+		return (this.g + this.h) - (n.g + n.h);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// Nodes are considered equal if their states are equal
+		Node n = (Node)obj;
+		return (n!=null && n.state.equals(this.state));
 	}
 }

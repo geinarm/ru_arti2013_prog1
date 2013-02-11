@@ -33,10 +33,11 @@ public class AStar_agent extends SearchAgent {
 				State nextState = n.state.getNext(move);
 				int h = Evaluate(nextState);
 				int g = 1;
-				if(move.equals("TURN_LEFT") || move.equals("TURN_RIGHT"))
-					g = 2;
-						
-				frontier.add(new Node(n, nextState, move, h, g));
+				
+				Node nextNode = new Node(n, nextState, move, h, g);
+				
+				if (!frontier.contains(nextNode))
+					frontier.add(nextNode);
 			}
 		}
 		

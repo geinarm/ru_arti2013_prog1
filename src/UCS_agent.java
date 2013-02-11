@@ -5,7 +5,6 @@ public class UCS_agent extends SearchAgent {
 
 	@Override
 	protected Node search(State startState) {
-		//fifo queue for the frontier
 		PriorityQueue<Node> frontier = new PriorityQueue<Node>();
 		
 		int nodeCounter = 0;
@@ -20,7 +19,7 @@ public class UCS_agent extends SearchAgent {
 			Node n = frontier.poll();
 			nodeCounter ++;
 			
-			System.out.println("Cost: " + n.pathCost);
+			System.out.println("Cost: " + n.g);
 			
 			//Is this the goal we want
 			if(State.isGoal(n.state, home))
@@ -41,7 +40,7 @@ public class UCS_agent extends SearchAgent {
 				
 				//Get generate the next state and add the node
 				State nextState = n.state.getNext(move);
-				frontier.add(new Node(n, nextState, move, cost));
+				frontier.add(new Node(n, nextState, move, 0, cost));
 			}
 		}
 		

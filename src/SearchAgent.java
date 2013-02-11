@@ -33,8 +33,8 @@ public abstract class SearchAgent implements Agent {
 			}
 			else if(args[0].equals("ORIENTATION"))
 			{		
-				//startState.direction = Direction.valueOf(args[1]);
-				startState.direction = Direction.NORTH;
+				startState.direction = Direction.valueOf(args[1]);
+				//startState.direction = Direction.NORTH;
 			}
 			else if(args[0].equals("SIZE")){
 				roomWidth = Integer.parseInt(args[1]);
@@ -56,7 +56,7 @@ public abstract class SearchAgent implements Agent {
 		//If the goal is not null we found a path
 		if(goalNode != null)
 		{
-			System.out.println("Path found! - cost: " + goalNode.pathCost);
+			System.out.println("Path found! - cost: " + goalNode.g);
 			//The last move will always be 'TURN_OFF' so just add it here
 			path.push("TURN_OFF");
 			

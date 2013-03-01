@@ -7,6 +7,7 @@ public class AStar_agent extends SearchAgent {
 	protected Node search(State startState) {
 		PriorityQueue<Node> frontier = new PriorityQueue<Node>();
 		int nodeCounter = 0;
+		int fontierSize = 0;
 		
 		//Create the root of the search tree
 		Node root = new Node(null, startState, "TURN_ON", Evaluate(startState), 0);
@@ -17,12 +18,14 @@ public class AStar_agent extends SearchAgent {
 		{
 			Node n = frontier.poll();
 			nodeCounter ++;
-			System.out.println("Evaluation: " + (n.g + n.h));
+			if(frontier.size() > fontierSize)
+				fontierSize = frontier.size(); 
 			
 			//Is this the goal we want
 			if(State.isGoal(n.state, home))
 			{
 				System.out.println("Nodes looked at: " + nodeCounter);
+				System.out.println("Max frontier size: " + fontierSize);
 				return n;
 			}
 			
@@ -32,9 +35,8 @@ public class AStar_agent extends SearchAgent {
 				//Get generate the next state and add the node
 				State nextState = n.state.getNext(move);
 				int h = Evaluate(nextState);
-				int g = 1;
 				
-				Node nextNode = new Node(n, nextState, move, h, g);
+				Node nextNode = new Node(n, nextState, move, h, 1);
 				
 				if (!frontier.contains(nextNode))
 					frontier.add(nextNode);
@@ -43,6 +45,7 @@ public class AStar_agent extends SearchAgent {
 		
 		//No goal was found
 		System.out.println("Nodes looked at: " + nodeCounter);
+		System.out.println("Max frontier size: " + fontierSize);
 		return null;
 		
 	}

@@ -30,7 +30,7 @@ public class Node implements Comparable<Node>{
 	public int Depth()
 	{
 		if(this.parent == null)
-			return 0;
+			return 1;
 		
 		return this.parent.Depth() +1;
 	}

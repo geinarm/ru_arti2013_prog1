@@ -8,6 +8,7 @@ public class UCS_agent extends SearchAgent {
 		PriorityQueue<Node> frontier = new PriorityQueue<Node>();
 		
 		int nodeCounter = 0;
+		int fontierSize = 0;
 		
 		//Create the root of the search tree
 		Node root = new Node(null, startState, "TURN_ON");
@@ -18,14 +19,14 @@ public class UCS_agent extends SearchAgent {
 		{
 			Node n = frontier.poll();
 			nodeCounter ++;
-			
-			System.out.println("Cost: " + n.g);
+			if(frontier.size() > fontierSize)
+				fontierSize = frontier.size(); 
 			
 			//Is this the goal we want
 			if(State.isGoal(n.state, home))
 			{
-				System.out.print("Nodes looked at: ");
-				System.out.println(nodeCounter);
+				System.out.println("Nodes looked at: " + nodeCounter);
+				System.out.println("Max frontier size: " + fontierSize);
 				return n;
 			}
 			
@@ -34,19 +35,22 @@ public class UCS_agent extends SearchAgent {
 			{
 				int cost;
 				if(move.equals("TURN_LEFT") || move.equals("TURN_RIGHT"))
-					cost = 2;
+					cost = 1;
 				else
 					cost = 1;
 				
 				//Get generate the next state and add the node
 				State nextState = n.state.getNext(move);
-				frontier.add(new Node(n, nextState, move, 0, cost));
+				Node nextNode = new Node(n, nextState, move, 0, cost);
+				
+				if (!frontier.contains(nextNode))
+					frontier.add(nextNode);
 			}
 		}
 		
 		//No goal was found
-		System.out.print("Nodes looked at: ");
-		System.out.println(nodeCounter);
+		System.out.println("Nodes looked at: " + nodeCounter);
+		System.out.println("Max frontier size: " + fontierSize);
 		return null;
 	}
 

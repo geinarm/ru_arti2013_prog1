@@ -1,0 +1,54 @@
+
+Programming assigment 1
+------------------------------------------------
+Gudjon Einar Magnusson
+Kristjan Broder Lund
+Jon Atli Baldvinsson
+
+
+Heuristic function
+------------------------------------------------
+Manhatan distance from the agent to the furthest away dirt and from it back to the home location. Plus the ammount of dirt left on the map.
+If there is no dirt left we only take the manhattan distance back to the home location.
+
+This will never overesimate the moves needed, it does not take turns or obsticles into account. Even if all the dirt is in a straight line in front of the agent it will need to travel at least the distance to the furthest away dirt and back. The plus one for each dirt accounts for the suck action needed to clean it up.
+
+Results
+------------------------------------------------
+
+BFS - lvl 1
+Nodes looked at: 15833
+Max frontier size: 993
+Time: 0.505
+Path length: 42
+
+BFS - lvl 2
+Nodes looked at: 15538
+Max frontier size: 983
+Time: 0.494
+Path length: 46
+
+BFS - lvl 7
+Did not finish in resonable time
+
+
+DFS - lvl 1
+Never finishes
+
+Uniform cost search
+Same as BFS since move cost is always one, we tried making turns cost more than go and suck but got the wrong path
+
+A* - lvl 1
+Nodes looked at: 5994
+Max frontier size: 861
+Time: 0.171
+Path length: 42
+
+A* - lvl 2
+Nodes looked at: 6748
+Max frontier size: 745
+Time: 0.172
+Path length: 46
+
+A* - lvl 7
+Did not finish in resonable time

@@ -51,12 +51,18 @@ public abstract class SearchAgent implements Agent {
 		
 		
 		//Search
+		long startTime = System.currentTimeMillis();
+		
 		Node goalNode = search(startState);
+		
+		long endTime = System.currentTimeMillis();
+		
+		System.out.println("Time: " + (endTime - startTime) / 1000.0);
 		
 		//If the goal is not null we found a path
 		if(goalNode != null)
 		{
-			System.out.println("Path found! - cost: " + goalNode.g);
+			System.out.println("Path length: " + (goalNode.Depth() +1));
 			//The last move will always be 'TURN_OFF' so just add it here
 			path.push("TURN_OFF");
 			
